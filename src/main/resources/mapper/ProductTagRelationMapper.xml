@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.product.mapper.ProductTagRelationMapper">
+  <resultMap id="BaseResultMap" type="com.demo.cook.modules.product.model.ProductTagRelation">
+    <constructor>
+      <arg column="productId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="productTypeId" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.demo.cook.modules.product.model.ProductTagRelation">
+    insert into t_product_tag_relation (productId, productTypeId)
+    values (#{productId,jdbcType=VARCHAR}, #{productTypeId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.cook.modules.product.model.ProductTagRelation">
+    insert into t_product_tag_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        productId,
+      </if>
+      <if test="productTypeId != null">
+        productTypeId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productTypeId != null">
+        #{productTypeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

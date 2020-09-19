@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.user.mapper.UserMapper">
+
+
+
+
+
+  <select id="getCountUserByUsername" parameterType="java.lang.String" resultType="java.lang.Integer" >
+    select count(1) from t_user where username = #{username,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectUserByLogin" parameterType="java.lang.String" resultType="com.demo.cook.modules.user.model.User">
+    select 
+    username, password, nickname, headImg, DATE_FORMAT(registerDate,'%Y-%m-%d') 'registerDate', gender, birthday, profession,
+    hometown, address, signature
+    from t_user
+    where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.demo.cook.modules.user.model.User">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="headImg != null">
+        headImg,
+      </if>
+      registerDate,
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="profession != null">
+        profession,
+      </if>
+      <if test="hometown != null">
+        hometown,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="signature != null">
+        signature,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null">
+        #{headImg,jdbcType=VARCHAR},
+      </if>
+      SYSDATE(),
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="hometown != null">
+        #{hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        #{signature,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateUserInfoSelective" parameterType="com.demo.cook.modules.user.model.User">
+    update t_user
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null">
+        headImg = #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="hometown != null">
+        hometown = #{hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where username = #{username,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectUserByUsername" parameterType="java.lang.String" resultType="com.demo.cook.modules.user.model.User">
+    select
+    username, password, nickname, headImg, DATE_FORMAT(registerDate,'%Y-%m-%d') 'registerDate', gender, birthday, profession,
+    hometown, address, signature
+    from t_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

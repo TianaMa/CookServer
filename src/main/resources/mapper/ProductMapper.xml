@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.product.mapper.ProductMapper">
+
+
+  <insert id="insert" parameterType="com.demo.cook.modules.product.model.Product">
+    insert into t_product (productId, title, content,
+      createTime)
+    values (#{productId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+      SYSDATE() )
+
+  </insert>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="com.demo.cook.modules.product.model.Product" >
+    select 
+    productId, title, content, createTime
+    from t_product
+    where productId = #{productId,jdbcType=VARCHAR}
+
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_product
+    where productId = #{productId,jdbcType=VARCHAR}
+
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.cook.modules.product.model.Product">
+    update t_product
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where productId = #{productId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

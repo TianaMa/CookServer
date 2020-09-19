@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.recipe.mapper.RecipeMapper">
+
+
+
+  <insert id="insertSelective" parameterType="com.demo.cook.modules.recipe.model.Recipe">
+    insert into t_recipe
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      recipeId,
+      <if test="issuer != null">
+        issuer,
+      </if>
+      <if test="recipeName != null">
+        recipeName,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="recipeDescribe != null">
+        recipeDescribe,
+      </if>
+      <if test="tips != null">
+        tips,
+      </if>
+      createTime,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{recipeId,jdbcType=VARCHAR},
+      <if test="issuer != null">
+        #{issuer,jdbcType=VARCHAR},
+      </if>
+      <if test="recipeName != null">
+        #{recipeName,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="recipeDescribe != null">
+        #{recipeDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null">
+        #{tips,jdbcType=VARCHAR},
+      </if>
+      SYSDATE(),
+    </trim>
+  </insert>
+
+  <select id="queryMyPublishRecipe" parameterType="java.lang.String" resultType="com.demo.cook.modules.recipe.model.MyPublishRecipe">
+    select U.nickname, U.headImg,
+    R.recipeId,  R.recipeName, R.cover,
+	C.count 'collectedCount'
+    from t_recipe R
+	LEFT JOIN t_user U  ON U.username = R.issuer
+	LEFT JOIN (select recipeId 'recipeId'  ,count(1) 'count' from t_user_collect_recipe group by recipeId )C on R.recipeId= C.RecipeId
+    where R.issuer = #{username,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="com.demo.cook.modules.recipe.model.Recipe" >
+    select
+    recipeId, issuer, recipeName, cover, recipeDescribe, tips
+    from t_recipe
+    where recipeId = #{recipeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_recipe
+    where recipeId = #{recipeId,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.cook.modules.recipe.model.Recipe">
+    update t_recipe
+    <set>
+      <if test="issuer != null">
+        issuer = #{issuer,jdbcType=VARCHAR},
+      </if>
+      <if test="recipeName != null">
+        recipeName = #{recipeName,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="recipeDescribe != null">
+        recipeDescribe = #{recipeDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null">
+        tips = #{tips,jdbcType=VARCHAR},
+      </if>
+      createTime = SYSDATE(),
+    </set>
+    where recipeId = #{recipeId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>
