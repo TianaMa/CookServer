@@ -62,7 +62,7 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"/>-->
         <!-- 数据库表以及对应的java模型类名（如果是多个表的话，可以复制多份然后修改成对应的表以及需要生成的模型名） -->
-        <table tableName="t_product_tag_relation" domainObjectName="ProductTagRelation"
+        <table tableName="t_product_tag" domainObjectName="ProductTag"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

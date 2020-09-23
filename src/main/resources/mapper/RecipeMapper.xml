@@ -52,7 +52,7 @@
 	C.count 'collectedCount'
     from t_recipe R
 	LEFT JOIN t_user U  ON U.username = R.issuer
-	LEFT JOIN (select recipeId 'recipeId'  ,count(1) 'count' from t_user_collect_recipe group by recipeId )C on R.recipeId= C.RecipeId
+	LEFT JOIN (select targetId 'targetId'  ,count(1) 'count' from t_user_collect group by targetId )C on R.recipeId= C.targetId
     where R.issuer = #{username,jdbcType=VARCHAR}
   </select>
 

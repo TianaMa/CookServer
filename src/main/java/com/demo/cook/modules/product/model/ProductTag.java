@@ -1,65 +1,49 @@
 package com.demo.cook.modules.product.model;
 
+import java.util.Date;
+
 public class ProductTag {
-    private String typeId;
 
-    private Integer level;
+    private String tagId;
 
-    private String typeName;
+    private String tagName;
 
-    private Integer parentId;
 
-    private String imagePath;
 
-    public ProductTag(String typeId, Integer level, String typeName, Integer parentId, String imagePath) {
-        this.typeId = typeId;
-        this.level = level;
-        this.typeName = typeName;
-        this.parentId = parentId;
-        this.imagePath = imagePath;
+    private int  productCount;
+
+    public ProductTag(String tagId, String tagName, Date createTime) {
+        this.tagId = tagId;
+        this.tagName = tagName;
     }
 
     public ProductTag() {
         super();
     }
 
-    public String getTypeId() {
-        return typeId;
+    public String getTagId() {
+        return tagId;
     }
 
-    public void setTypeId(String typeId) {
-        this.typeId = typeId == null ? null : typeId.trim();
+    public void setTagId(String tagId) {
+        this.tagId = tagId == null ? null : tagId.trim();
     }
 
-    public Integer getLevel() {
-        return level;
+    public String getTagName() {
+        return tagName;
     }
 
-    public void setLevel(Integer level) {
-        this.level = level;
+    public void setTagName(String tagName) {
+        this.tagName = tagName == null ? null : tagName.trim();
     }
 
-    public String getTypeName() {
-        return typeName;
+    public int getProductCount() {
+        return productCount;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName == null ? null : typeName.trim();
+    public void setProductCount(int productCount) {
+        this.productCount = productCount;
     }
 
-    public Integer getParentId() {
-        return parentId;
-    }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath == null ? null : imagePath.trim();
-    }
 }

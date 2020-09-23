@@ -1,7 +1,6 @@
 package com.demo.cook.modules.recipe.model;
 
 public class RecipeMaterial {
-    private String recipeId;
 
     private String materialName;
 
@@ -10,21 +9,12 @@ public class RecipeMaterial {
     private int orderIndex;
 
     public RecipeMaterial(String recipeId, String materialName, String dosage) {
-        this.recipeId = recipeId;
         this.materialName = materialName;
         this.dosage = dosage;
     }
 
     public RecipeMaterial() {
         super();
-    }
-
-    public String getRecipeId() {
-        return recipeId;
-    }
-
-    public void setRecipeId(String recipeId) {
-        this.recipeId = recipeId == null ? null : recipeId.trim();
     }
 
     public String getMaterialName() {
