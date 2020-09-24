@@ -4,8 +4,6 @@ package com.demo.cook.modules.user.model;
 public class User {
     private String username;
 
-    private String password;
-
     private String nickname;
 
     private String headImg;
@@ -38,13 +36,6 @@ public class User {
         this.username = username == null ? null : username.trim();
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
 
     public String getNickname() {
         return nickname;

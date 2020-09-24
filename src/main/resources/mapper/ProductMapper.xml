@@ -5,7 +5,7 @@
 
   <insert id="insertProduct" parameterType="com.demo.cook.modules.product.model.Product">
     insert into t_product (productId, issuer, title, content, images, tagId, createTime)
-    values (#{productId,jdbcType=VARCHAR}, (#{issuer,jdbcType=VARCHAR},
+    values (#{productId,jdbcType=VARCHAR}, #{issuer,jdbcType=VARCHAR},
     #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
     #{images,jdbcType=VARCHAR}, #{tagId,jdbcType=VARCHAR},
     SYSDATE() )

@@ -4,7 +4,7 @@ import com.demo.cook.common.response.RtnResult;
 
 public interface ICollectService {
 
-    RtnResult addCollect(String username, String productId) throws Exception;
+    RtnResult addCollect(String username, String targetId) throws Exception;
 
-    RtnResult cancelCollect(String username, String productId) throws Exception;
+    RtnResult cancelCollect(String username, String targetId) throws Exception;
 }

@@ -2,25 +2,13 @@ package com.demo.cook.modules.product.model;
 
 import java.util.Date;
 
-public class ProductDetails {
+public class ProductDetails extends Product{
 
     private String productId;
 
 
-
-    private String title;
-
-    private String content;
-
-    private String images;
-
-    private String tagId;
-
     private Date createTime;
 
-
-
-    private String issuer;
 
     private String nickname;
 
@@ -38,7 +26,6 @@ public class ProductDetails {
 
 
 
-
     public String getProductId() {
         return productId;
     }
@@ -48,39 +35,6 @@ public class ProductDetails {
     }
 
 
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
-    public String getImages() {
-        return images;
-    }
-
-    public void setImages(String images) {
-        this.images = images;
-    }
-
-    public String getTagId() {
-        return tagId;
-    }
-
-    public void setTagId(String tagId) {
-        this.tagId = tagId;
-    }
-
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
@@ -89,22 +43,6 @@ public class ProductDetails {
         return createTime;
     }
 
-
-
-
-
-
-
-
-
-
-    public String getIssuer() {
-        return issuer;
-    }
-
-    public void setIssuer(String issuer) {
-        this.issuer = issuer;
-    }
 
     public String getNickname() {
         return nickname;

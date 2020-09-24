@@ -38,7 +38,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public RtnResult<PageInfo<Map<String,Object>>> queryMyPublishProduct(HttpServletRequest request) throws Exception {
+    public RtnResult<PageInfo<ProductDetails>> queryMyPublishProduct(HttpServletRequest request) throws Exception {
         String username=request.getParameter("username");
         if (StringUtils.isNullOrEmpty(username)){
             return new RtnResult<>(Rtn.missingParameter);
@@ -48,7 +48,7 @@ public class ProductServiceImpl implements IProductService {
         PageHelper.startPage(pageNum, pageSize,true);
         List<ProductDetails> productDetails = productMapper.queryMyPublishProduct(username);
 
-        PageInfo<Map<String,Object>> appsPageInfo = new PageInfo(productDetails);
+        PageInfo<ProductDetails> appsPageInfo = new PageInfo(productDetails);
 
         return new RtnResult<>(Rtn.success,appsPageInfo);
     }

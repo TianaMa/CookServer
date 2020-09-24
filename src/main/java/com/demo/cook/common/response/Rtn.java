@@ -20,6 +20,8 @@ public enum Rtn {
     editUserInfoError(1021,"修改用户信息失败"),
     noData(0001,"暂无信息"),
 
+    cannotSubscribe(1031,"cannotSubscribe"),
+
             ;
 
 

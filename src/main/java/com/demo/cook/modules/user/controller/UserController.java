@@ -2,14 +2,17 @@ package com.demo.cook.modules.user.controller;
 
 import com.demo.cook.common.response.Rtn;
 import com.demo.cook.common.response.RtnResult;
+import com.demo.cook.modules.user.model.Register;
 import com.demo.cook.modules.user.model.User;
+import com.demo.cook.modules.user.model.UserInfo;
 import com.demo.cook.modules.user.service.IUserService;
+import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-
+import java.util.List;
 
 
 @CrossOrigin
@@ -26,7 +29,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public RtnResult<User> register(@RequestBody User user)  {
+    public RtnResult<UserInfo> register(@RequestBody Register user)  {
         try {
             System.out.println(new Gson().toJson(user));
             return userService.register(user);
@@ -37,7 +40,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST )
-    public RtnResult<User> login(HttpServletRequest request ) {
+    public RtnResult<UserInfo> login(HttpServletRequest request ) {
         String username =request.getParameter("username");
         String password =request.getParameter("password");
         try {
@@ -49,9 +52,29 @@ public class UserController {
     }
 
     @RequestMapping(value = "/updateUserInfo",method = RequestMethod.POST)
-    public RtnResult<User> updateUserInfo(@RequestBody User user) {
+    public RtnResult<UserInfo> updateUserInfo(@RequestBody User user) {
         try {
             return userService.updateUserInfo(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new RtnResult<>(Rtn.serviceException);
+        }
+    }
+
+    @RequestMapping(value = "/mySubscribe",method = RequestMethod.POST)
+    public RtnResult<PageInfo<UserInfo>> selectMyCareUsers(HttpServletRequest request) {
+        try {
+            return userService.selectMyCareUsers(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new RtnResult<>(Rtn.serviceException);
+        }
+    }
+
+    @RequestMapping(value = "/recommend",method = RequestMethod.POST)
+    public RtnResult<List<UserInfo>> selectUsersRecommend(HttpServletRequest request) {
+        try {
+            return userService.selectUsersRecommend(request.getParameter("username"));
         } catch (Exception e) {
             e.printStackTrace();
             return new RtnResult<>(Rtn.serviceException);

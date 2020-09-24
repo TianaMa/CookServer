@@ -14,7 +14,7 @@ public interface IProductService {
     RtnResult publish(Product product) throws Exception;
 
 
-    RtnResult<PageInfo<Map<String,Object>>> queryMyPublishProduct(HttpServletRequest request) throws Exception;
+    RtnResult<PageInfo<ProductDetails>> queryMyPublishProduct(HttpServletRequest request) throws Exception;
 
 
     RtnResult updateMyProduct(Product product) throws Exception;

@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -39,7 +38,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/queryMyPublish",method = RequestMethod.GET)
-    public RtnResult<PageInfo<Map<String,Object>>> queryMyPublish(HttpServletRequest request)  {
+    public RtnResult<PageInfo<ProductDetails>> queryMyPublish(HttpServletRequest request)  {
         try {
             return productService.queryMyPublishProduct(request);
         } catch (Exception e) {
