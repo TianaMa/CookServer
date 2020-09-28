@@ -25,6 +25,8 @@ public class QueryRecipeParams {
     private String sortId;
     private String searchText;
     private String issuer;
+
+    private String collector;
     private String order;
 
     public QueryRecipeParams() {
@@ -85,6 +87,14 @@ public class QueryRecipeParams {
 
     public void setIssuer(String issuer) {
         this.issuer = issuer;
+    }
+
+    public String getCollector() {
+        return collector;
+    }
+
+    public void setCollector(String collector) {
+        this.collector = collector;
     }
 
     public String getOrder() {

@@ -10,6 +10,8 @@ public class UserInfo extends User{
     private int countBeCared;
     //关注数
     private int countSubscribe;
+    //收藏数
+    private int countCollect;
     //是否已关注
     private boolean subscribe;
 
@@ -43,6 +45,14 @@ public class UserInfo extends User{
 
     public void setCountSubscribe(int countSubscribe) {
         this.countSubscribe = countSubscribe;
+    }
+
+    public int getCountCollect() {
+        return countCollect;
+    }
+
+    public void setCountCollect(int countCollect) {
+        this.countCollect = countCollect;
     }
 
     public boolean isSubscribe() {

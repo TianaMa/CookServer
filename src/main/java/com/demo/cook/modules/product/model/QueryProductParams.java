@@ -24,6 +24,7 @@ public class QueryProductParams {
     private String tagId;
     private String searchText;
     private String issuer;
+    private String collector;
     private String order;
 
     public int getPageNum() {
@@ -72,6 +73,14 @@ public class QueryProductParams {
 
     public void setIssuer(String issuer) {
         this.issuer = issuer;
+    }
+
+    public String getCollector() {
+        return collector;
+    }
+
+    public void setCollector(String collector) {
+        this.collector = collector;
     }
 
     public String getOrder() {

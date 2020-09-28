@@ -100,9 +100,10 @@
     LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_comment group by targetId )CM on R.recipeId= CM.targetId
     LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_collect where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )ICD on R.recipeId= ICD.targetId
     LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_praise where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )IPD on R.recipeId= IPD.targetId
-
+    <if test="collector !=null and collector !='' ">
+      INNER JOIN  t_user_collect UC ON R.recipeId = UC.targetId
+    </if>
     where 1=1
-
     <if test="searchText !=null and searchText != ''">
       and R.recipeName like '%${searchText}%'
     </if>
@@ -113,6 +114,10 @@
 
     <if test="issuer !=null and issuer != ''">
       and R.issuer = #{issuer,jdbcType=VARCHAR}
+    </if>
+
+    <if test="collector !=null and collector !='' ">
+      and UC.username = #{collector,jdbcType=VARCHAR}
     </if>
     <choose>
       <when test="order !=null and order == 'collect'">
