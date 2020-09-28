@@ -60,7 +60,10 @@
     LEFT JOIN (select targetId 'targetId'  ,count(1) 'count' from t_user_collect where username = #{loginUserName,jdbcType=VARCHAR} group by targetId  )ICD on P.productId= ICD.targetId
     LEFT JOIN (select targetId 'targetId'  ,count(1) 'count' from t_user_praise where username = #{loginUserName,jdbcType=VARCHAR} group by targetId  )IPD on P.productId= IPD.targetId
     LEFT JOIN t_user U ON P.issuer = U.username
-    LEFT JOIN  t_user_collect UC ON P.productId = UC.targetId
+    <if test="collector !=null and collector !='' ">
+      LEFT JOIN  t_user_collect UC ON P.productId = UC.targetId
+    </if>
+
     where 1=1
 
     <if test="searchText !=null and searchText != ''">
