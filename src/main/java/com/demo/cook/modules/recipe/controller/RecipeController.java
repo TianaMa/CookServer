@@ -9,6 +9,7 @@ import com.demo.cook.modules.recipe.model.RecipeBrief;
 import com.demo.cook.modules.recipe.model.RecipeDetails;
 import com.demo.cook.modules.recipe.service.IRecipeService;
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,7 @@ public class RecipeController {
     @RequestMapping(value = "/queryRecipeList",method = RequestMethod.POST)
     public RtnResult<PageInfo<RecipeBrief>> queryRecipeList(@RequestBody QueryRecipeParams params)  {
         try {
+            System.out.println(new Gson().toJson(params));
             return recipeService.queryRecipeList(params);
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,16 +65,12 @@ public class RecipeController {
     @RequestMapping(value = "/queryRecipeDetails",method = RequestMethod.GET)
     public RtnResult<RecipeDetails> queryRecipeDetails(HttpServletRequest params)  {
         try {
-            return recipeService.queryRecipeDetails(params.getParameter("recipeId"));
+            return recipeService.queryRecipeDetails(params.getParameter("recipeId"),params.getParameter("loginUserName"));
         } catch (Exception e) {
             e.printStackTrace();
             return new RtnResult<>(Rtn.serviceException);
         }
     }
-
-
-
-
 
 
 }

@@ -82,12 +82,12 @@ public class RecipeServiceImpl implements IRecipeService{
     }
 
     @Override
-    public RtnResult<RecipeDetails> queryRecipeDetails(String recipeId) throws Exception {
+    public RtnResult<RecipeDetails> queryRecipeDetails(String recipeId,String loginUserName) throws Exception {
         if(StringUtils.isNullOrEmpty(recipeId)){
             return new RtnResult<>(Rtn.missingParameter);
         }
 
-        RecipeDetails recipe = recipeMapper.selectDetailsByRecipeId(recipeId);
+        RecipeDetails recipe = recipeMapper.selectDetailsByRecipeId(recipeId,loginUserName);
         if (recipe==null){
             return new RtnResult<>(Rtn.noData);
         }

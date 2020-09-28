@@ -140,7 +140,8 @@
     PD.count 'countPraise',
     CM.count 'countComment',
     if(ICD.count>0,TRUE,FALSE) 'collected',
-    if(IPD.count>0,TRUE,FALSE) 'praised'
+    if(IPD.count>0,TRUE,FALSE) 'praised',
+    if(OUC.count>0,TRUE,FALSE) 'subscribe'
     from t_recipe R
     LEFT JOIN t_user U ON R.issuer = U.username
     LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_collect group by targetId )CD on R.recipeId= CD.targetId
@@ -148,6 +149,7 @@
     LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_comment group by targetId )CM on R.recipeId= CM.targetId
     LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_collect where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )ICD on R.recipeId= ICD.targetId
     LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_praise where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )IPD on R.recipeId= IPD.targetId
+    LEFT JOIN (select beCaredId 'beCaredId' ,count(1) 'count' from t_user_observe_user where observerId =#{loginUserName,jdbcType=VARCHAR}  group by beCaredId )OUC on R.issuer = OUC.beCaredId
     where recipeId = #{recipeId,jdbcType=VARCHAR}
   </select>
 

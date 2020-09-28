@@ -2,18 +2,15 @@ package com.demo.cook.modules.user.model;
 
 public class UserInfo extends User{
 
-    //作品数   菜谱数
-    //被关注数（粉丝）
-    //关注数
-
+    //作品数
     private int countProduct;
-
+    //菜谱数
     private int countRecipe;
-
+    //被关注数（粉丝）
     private int countBeCared;
-
+    //关注数
     private int countSubscribe;
-
+    //是否已关注
     private boolean subscribe;
 
     public int getCountProduct() {

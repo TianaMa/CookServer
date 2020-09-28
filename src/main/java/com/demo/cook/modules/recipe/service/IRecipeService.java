@@ -18,6 +18,6 @@ public interface IRecipeService {
     RtnResult<PageInfo<RecipeBrief>> queryRecipeList(QueryRecipeParams params) throws Exception;
 
 
-    RtnResult<RecipeDetails> queryRecipeDetails(String recipeId) throws Exception;
+    RtnResult<RecipeDetails> queryRecipeDetails(String recipeId,String loginUserName) throws Exception;
 
 }
