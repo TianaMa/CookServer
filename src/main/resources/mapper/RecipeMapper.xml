@@ -24,8 +24,8 @@
         tips,
       </if>
       createTime,
-      <if test="sort != null">
-        sort,
+      <if test="sortId != null">
+        sortId,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -46,8 +46,8 @@
         #{tips,jdbcType=VARCHAR},
       </if>
       SYSDATE(),
-      <if test="sort != null">
-        #{sort,jdbcType=VARCHAR},
+      <if test="sortId != null">
+        #{sortId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -86,7 +86,7 @@
 
   <select id="queryRecipeList" parameterType="com.demo.cook.modules.recipe.model.QueryRecipeParams" resultType="com.demo.cook.modules.recipe.model.RecipeBrief">
     select
-    R.recipeId,  R.recipeName, R.cover, R.createTime,
+    R.recipeId, R.recipeName, R.cover, R.recipeDescribe,R.tips,R.sortId, R.createTime,R.issuer,
     U.nickname, U.headImg,
     CD.count 'countCollect',
     PD.count 'countPraise',
@@ -132,10 +132,22 @@
   </select>
 
 
-  <select id="selectDetailsByRecipeId" parameterType="java.lang.String" resultType="com.demo.cook.modules.recipe.model.Recipe" >
+  <select id="selectDetailsByRecipeId" parameterType="java.lang.String" resultType="com.demo.cook.modules.recipe.model.RecipeDetails" >
     select
-    recipeId, issuer, recipeName, cover, recipeDescribe, tips,sortId
-    from t_recipe
+    R.recipeId, R.recipeName, R.cover, R.recipeDescribe,R.tips,R.sortId, R.createTime, R.issuer,
+    U.nickname, U.headImg,
+    CD.count 'countCollect',
+    PD.count 'countPraise',
+    CM.count 'countComment',
+    if(ICD.count>0,TRUE,FALSE) 'collected',
+    if(IPD.count>0,TRUE,FALSE) 'praised'
+    from t_recipe R
+    LEFT JOIN t_user U ON R.issuer = U.username
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_collect group by targetId )CD on R.recipeId= CD.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_praise group by targetId )PD on R.recipeId= PD.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_comment group by targetId )CM on R.recipeId= CM.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_collect where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )ICD on R.recipeId= ICD.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_praise where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )IPD on R.recipeId= IPD.targetId
     where recipeId = #{recipeId,jdbcType=VARCHAR}
   </select>
 

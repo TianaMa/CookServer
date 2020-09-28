@@ -4,6 +4,7 @@ import com.demo.cook.common.response.RtnResult;
 import com.demo.cook.modules.recipe.model.QueryRecipeParams;
 import com.demo.cook.modules.recipe.model.RecipeBrief;
 import com.demo.cook.modules.recipe.model.Recipe;
+import com.demo.cook.modules.recipe.model.RecipeDetails;
 import com.github.pagehelper.PageInfo;
 
 
@@ -17,6 +18,6 @@ public interface IRecipeService {
     RtnResult<PageInfo<RecipeBrief>> queryRecipeList(QueryRecipeParams params) throws Exception;
 
 
-    RtnResult<Recipe> queryRecipeDetails(String recipeId) throws Exception;
+    RtnResult<RecipeDetails> queryRecipeDetails(String recipeId) throws Exception;
 
 }

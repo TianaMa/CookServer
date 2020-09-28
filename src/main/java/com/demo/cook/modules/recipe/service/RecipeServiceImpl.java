@@ -9,6 +9,7 @@ import com.demo.cook.modules.recipe.mapper.RecipeStepMapper;
 import com.demo.cook.modules.recipe.model.QueryRecipeParams;
 import com.demo.cook.modules.recipe.model.RecipeBrief;
 import com.demo.cook.modules.recipe.model.Recipe;
+import com.demo.cook.modules.recipe.model.RecipeDetails;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mysql.cj.util.StringUtils;
@@ -81,12 +82,12 @@ public class RecipeServiceImpl implements IRecipeService{
     }
 
     @Override
-    public RtnResult<Recipe> queryRecipeDetails(String recipeId) throws Exception {
+    public RtnResult<RecipeDetails> queryRecipeDetails(String recipeId) throws Exception {
         if(StringUtils.isNullOrEmpty(recipeId)){
             return new RtnResult<>(Rtn.missingParameter);
         }
 
-        Recipe recipe = recipeMapper.selectDetailsByRecipeId(recipeId);
+        RecipeDetails recipe = recipeMapper.selectDetailsByRecipeId(recipeId);
         if (recipe==null){
             return new RtnResult<>(Rtn.noData);
         }

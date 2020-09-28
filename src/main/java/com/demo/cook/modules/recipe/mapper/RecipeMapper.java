@@ -3,6 +3,7 @@ package com.demo.cook.modules.recipe.mapper;
 import com.demo.cook.modules.recipe.model.QueryRecipeParams;
 import com.demo.cook.modules.recipe.model.RecipeBrief;
 import com.demo.cook.modules.recipe.model.Recipe;
+import com.demo.cook.modules.recipe.model.RecipeDetails;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -19,6 +20,6 @@ public interface RecipeMapper {
 
     List<RecipeBrief> queryRecipeList(QueryRecipeParams params) throws Exception;
 
-    Recipe selectDetailsByRecipeId(String recipeId) throws Exception;
+    RecipeDetails selectDetailsByRecipeId(String recipeId) throws Exception;
 
 }
