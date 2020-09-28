@@ -5,14 +5,13 @@ import com.demo.cook.common.response.Rtn;
 import com.demo.cook.common.response.RtnResult;
 import com.demo.cook.modules.product.model.Product;
 import com.demo.cook.modules.product.model.ProductDetails;
+import com.demo.cook.modules.product.model.QueryProductParams;
 import com.demo.cook.modules.product.service.IProductService;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -37,15 +36,6 @@ public class ProductController {
         }
     }
 
-    @RequestMapping(value = "/queryMyPublish",method = RequestMethod.GET)
-    public RtnResult<PageInfo<ProductDetails>> queryMyPublish(HttpServletRequest request)  {
-        try {
-            return productService.queryMyPublishProduct(request);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new RtnResult<>(Rtn.serviceException);
-        }
-    }
 
     @RequestMapping(value = "/updateMyProduct",method = RequestMethod.POST)
     public RtnResult updateMyProduct(@RequestBody Product product)  {
@@ -59,8 +49,15 @@ public class ProductController {
 
 
 
-    @RequestMapping(value = "/queryProductList",method = RequestMethod.GET)
-    public RtnResult<PageInfo<Map<String,Object>>> queryProductList(HttpServletRequest params)  {
+    /**
+     * 根据标签（tagId）查询、
+     * 关键字(searchText)查询
+     * 发布者(issuer )查询  、
+     * 排序方式(order = ["collect","praise","默认是按时间倒序"])查询、
+     * 支持分页
+     * */
+    @RequestMapping(value = "/queryProductList",method = RequestMethod.POST)
+    public RtnResult<PageInfo<ProductDetails>> queryProductList(@RequestBody QueryProductParams params)  {
         try {
             return productService.queryProductList(params);
         } catch (Exception e) {

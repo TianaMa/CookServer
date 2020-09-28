@@ -3,9 +3,11 @@ package com.demo.cook.modules.recipe.controller;
 
 import com.demo.cook.common.response.Rtn;
 import com.demo.cook.common.response.RtnResult;
-import com.demo.cook.modules.recipe.model.MyPublishRecipe;
+import com.demo.cook.modules.recipe.model.QueryRecipeParams;
 import com.demo.cook.modules.recipe.model.Recipe;
+import com.demo.cook.modules.recipe.model.RecipeBrief;
 import com.demo.cook.modules.recipe.service.IRecipeService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,13 +39,13 @@ public class RecipeController {
         }
     }
 
-    @RequestMapping(value = "/queryMyPublish",method = RequestMethod.GET)
-    public RtnResult<List<MyPublishRecipe>> queryMyPublish(HttpServletRequest params)  {
+    @RequestMapping(value = "/queryRecipeList",method = RequestMethod.POST)
+    public RtnResult<PageInfo<RecipeBrief>> queryRecipeList(@RequestBody QueryRecipeParams params)  {
         try {
-            return recipeService.queryMyPublishRecipe(params.getParameter("username"));
+            return recipeService.queryRecipeList(params);
         } catch (Exception e) {
             e.printStackTrace();
-            return new RtnResult<>(Rtn.serviceException);
+            return new RtnResult(Rtn.serviceException);
         }
     }
 

@@ -19,7 +19,7 @@ public interface UserMapper {
     int insertSelective(Register record) throws Exception ;
 
     //登录
-    User selectUserByLogin(@Param("username") String username,@Param("password") String password) throws Exception ;
+    UserInfo selectUserByLogin(@Param("username") String username,@Param("password") String password) throws Exception ;
 
     //修改信息
     int updateUserInfoSelective(User record) throws Exception ;

@@ -51,7 +51,7 @@ public class UserServiceImpl implements IUserService {
             return new RtnResult<>(Rtn.missingParameter);
         }
 
-        User user = userMapper.selectUserByLogin(username,password);
+        UserInfo user = userMapper.selectUserByLogin(username,password);
         if(user==null){
             return new RtnResult<>(Rtn.userOrPasswordError);
         }else {

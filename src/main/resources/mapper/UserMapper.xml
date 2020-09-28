@@ -10,12 +10,21 @@
     select count(1) from t_user where username = #{username,jdbcType=VARCHAR}
   </select>
 
-  <select id="selectUserByLogin" parameterType="java.lang.String" resultType="com.demo.cook.modules.user.model.User">
-    select 
-    username, password, nickname, headImg, DATE_FORMAT(registerDate,'%Y-%m-%d') 'registerDate', gender, birthday, profession,
-    hometown, address, signature
-    from t_user
-    where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  <select id="selectUserByLogin" parameterType="java.lang.String" resultType="com.demo.cook.modules.user.model.UserInfo">
+
+    select
+    U.username, U.nickname, U.headImg, DATE_FORMAT(U.registerDate,'%Y-%m-%d') 'registerDate', U.gender, U.birthday, U.profession,
+    U.hometown, U.address, U.signature,
+    P.count 'countProduct',
+    R.count 'countRecipe',
+    UOU.count 'countBeCared',
+    UCU.count 'countSubscribe'
+    from t_user U
+    LEFT JOIN (select issuer 'issuer'  ,count(1) 'count' from t_product group by issuer )P on U.username = P.issuer
+    LEFT JOIN (select issuer 'issuer'  ,count(1) 'count' from t_recipe group by issuer )R on U.username = R.issuer
+    LEFT JOIN (select beCaredId 'beCaredId'  ,count(1) 'count' from t_user_observe_user group by beCaredId )UOU on U.username = UOU.beCaredId
+    LEFT JOIN (select observerId 'observerId'  ,count(1) 'count' from t_user_observe_user group by observerId )UCU on U.username = UCU.observerId
+    where U.username = #{username,jdbcType=VARCHAR} and U.password = #{password,jdbcType=VARCHAR}
   </select>
 
   <insert id="insertSelective" parameterType="com.demo.cook.modules.user.model.Register">
@@ -56,9 +65,7 @@
   <update id="updateUserInfoSelective" parameterType="com.demo.cook.modules.user.model.User">
     update t_user
     <set>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
+
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
       </if>

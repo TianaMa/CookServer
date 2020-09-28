@@ -17,6 +17,8 @@ public class Recipe {
 
     private String tips;
 
+    private String sortId;
+
     private List<RecipeMaterial> recipeMaterialList;
 
     private List<RecipeStep> recipeStepList;
@@ -96,5 +98,13 @@ public class Recipe {
 
     public void setTips(String tips) {
         this.tips = tips == null ? null : tips.trim();
+    }
+
+    public String getSortId() {
+        return sortId;
+    }
+
+    public void setSortId(String sortId) {
+        this.sortId = sortId;
     }
 }

@@ -6,8 +6,11 @@ import com.demo.cook.common.response.RtnResult;
 import com.demo.cook.modules.recipe.mapper.RecipeMapper;
 import com.demo.cook.modules.recipe.mapper.RecipeMaterialMapper;
 import com.demo.cook.modules.recipe.mapper.RecipeStepMapper;
-import com.demo.cook.modules.recipe.model.MyPublishRecipe;
+import com.demo.cook.modules.recipe.model.QueryRecipeParams;
+import com.demo.cook.modules.recipe.model.RecipeBrief;
 import com.demo.cook.modules.recipe.model.Recipe;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,30 +53,7 @@ public class RecipeServiceImpl implements IRecipeService{
         return new RtnResult<>(Rtn.success);
     }
 
-    @Override
-    public RtnResult<List<MyPublishRecipe>> queryMyPublishRecipe(String username) throws Exception {
 
-        if(StringUtils.isNullOrEmpty(username)){
-            return new RtnResult<>(Rtn.missingParameter);
-        }
-        return new RtnResult<>(Rtn.success,recipeMapper.queryMyPublishRecipe(username));
-    }
-
-    @Override
-    public RtnResult<Recipe> queryRecipeDetails(String recipeId) throws Exception {
-        if(StringUtils.isNullOrEmpty(recipeId)){
-            return new RtnResult<>(Rtn.missingParameter);
-        }
-
-        Recipe recipe = recipeMapper.selectByPrimaryKey(recipeId);
-        if (recipe==null){
-            return new RtnResult<>(Rtn.noData);
-        }
-        recipe.setRecipeMaterialList(recipeMaterialMapper.selectMaterialListByRecipeId(recipeId));
-        recipe.setRecipeStepList(recipeStepMapper.selectStepListByRecipeId(recipeId));
-
-        return new RtnResult<>(Rtn.success,recipe);
-    }
 
     @Override
     public RtnResult updateMyRecipe(Recipe recipe) throws Exception {
@@ -87,6 +67,33 @@ public class RecipeServiceImpl implements IRecipeService{
         recipeStepMapper.batchInsertStep(recipe.getRecipeId(),recipe.getRecipeStepList());
 
         return new RtnResult<>(Rtn.success);
+    }
+
+
+    @Override
+    public RtnResult<PageInfo<RecipeBrief>> queryRecipeList(QueryRecipeParams params) throws Exception {
+
+        PageHelper.startPage(params.getPageNum(), params.getPageSize(),true);
+        List<RecipeBrief> recipeBriefs = recipeMapper.queryRecipeList(params);
+        PageInfo<RecipeBrief> pageInfo = new PageInfo(recipeBriefs);
+
+        return new RtnResult(Rtn.success,pageInfo);
+    }
+
+    @Override
+    public RtnResult<Recipe> queryRecipeDetails(String recipeId) throws Exception {
+        if(StringUtils.isNullOrEmpty(recipeId)){
+            return new RtnResult<>(Rtn.missingParameter);
+        }
+
+        Recipe recipe = recipeMapper.selectDetailsByRecipeId(recipeId);
+        if (recipe==null){
+            return new RtnResult<>(Rtn.noData);
+        }
+        recipe.setRecipeMaterialList(recipeMaterialMapper.selectMaterialListByRecipeId(recipeId));
+        recipe.setRecipeStepList(recipeStepMapper.selectStepListByRecipeId(recipeId));
+
+        return new RtnResult<>(Rtn.success,recipe);
     }
 
 

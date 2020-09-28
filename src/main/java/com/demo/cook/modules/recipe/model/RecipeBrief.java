@@ -1,14 +1,23 @@
-package com.demo.cook.modules.product.model;
+package com.demo.cook.modules.recipe.model;
 
+import java.util.Date;
 
-public class ProductDetails extends Product{
+public class RecipeBrief {
 
-
-    private String tagName;
 
     private String nickname;
 
     private String headImg;
+
+    private int collectedCount;
+
+    private String recipeId;
+
+    private String recipeName;
+
+    private String cover;
+
+    private Date createTime;
 
     private int countPraise;
 
@@ -19,14 +28,6 @@ public class ProductDetails extends Product{
     private boolean collected;
 
     private boolean praised;
-
-    public String getTagName() {
-        return tagName;
-    }
-
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
-    }
 
     public String getNickname() {
         return nickname;
@@ -44,6 +45,45 @@ public class ProductDetails extends Product{
         this.headImg = headImg;
     }
 
+    public int getCollectedCount() {
+        return collectedCount;
+    }
+
+    public void setCollectedCount(int collectedCount) {
+        this.collectedCount = collectedCount;
+    }
+
+    public String getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(String recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public String getRecipeName() {
+        return recipeName;
+    }
+
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public int getCountPraise() {
         return countPraise;
@@ -60,7 +100,6 @@ public class ProductDetails extends Product{
     public void setCountCollect(int countCollect) {
         this.countCollect = countCollect;
     }
-
 
     public int getCountComment() {
         return countComment;
