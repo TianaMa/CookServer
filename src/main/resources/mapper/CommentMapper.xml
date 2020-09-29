@@ -23,6 +23,7 @@
     LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_praise group by targetId )PD on UC.commentId= PD.targetId
     LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_praise where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )IPD on UC.commentId= IPD.targetId
     where UC.targetId = #{targetId,jdbcType=VARCHAR}
+    order by UC.createTime desc
 
   </select>
 
