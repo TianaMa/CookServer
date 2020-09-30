@@ -156,7 +156,9 @@
     LEFT JOIN (select observerId 'observerId'  ,count(1) 'count' from t_user_observe_user group by observerId )UCU on U.username = UCU.observerId
     LEFT JOIN (select beCaredId 'beCaredId' ,count(1) 'count' from t_user_observe_user where observerId = #{username,jdbcType=VARCHAR}  group by beCaredId )OUC on U.username = OUC.beCaredId
     where NOT EXISTS (SELECT * FROM t_user_observe_user WHERE observerId = #{username,jdbcType=VARCHAR} and beCaredId = U.username)
-    and U.username != #{username,jdbcType=VARCHAR}
+    <if test="username !=null and username!='' ">
+      and U.username != #{username,jdbcType=VARCHAR}
+    </if>
     order by UOU.count desc
   </select>
 

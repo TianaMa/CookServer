@@ -71,7 +71,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/recommend",method = RequestMethod.POST)
+    @RequestMapping(value = "/recommend")
     public RtnResult<List<UserInfo>> selectUsersRecommend(HttpServletRequest request) {
         try {
             return userService.selectUsersRecommend(request.getParameter("username"));
