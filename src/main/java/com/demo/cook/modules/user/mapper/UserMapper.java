@@ -31,6 +31,6 @@ public interface UserMapper {
     List<UserInfo> selectMyCareUsers(@Param("username") String username) throws Exception ;
 
     //查询（我没关注）推荐的用户 （根据粉丝数 倒叙查询）
-    List<UserInfo>  selectUsersRecommend(String username) throws Exception ;
+    List<UserInfo>  selectUsersRecommend(@Param("username") String username) throws Exception ;
 
 }
