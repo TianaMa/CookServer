@@ -47,7 +47,7 @@ public class ShoppingCartController {
 
 
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
-    RtnResult<Integer> deleteShoppingCart(HttpServletRequest request){
+    RtnResult<List<ShoppingCartDetails>> deleteShoppingCart(HttpServletRequest request){
         try {
             return shoppingCartService.deleteShoppingCart(request);
         } catch (Exception e) {

@@ -53,16 +53,14 @@ public class ShoppingCartServiceImpl implements IShoppingCartService{
     }
 
     @Override
-    public RtnResult<Integer> deleteShoppingCart(HttpServletRequest request) throws Exception {
+    public RtnResult<List<ShoppingCartDetails>> deleteShoppingCart(HttpServletRequest request) throws Exception {
         String username= request.getParameter("username");
         String goodsIds = request.getParameter("goodsIds");
         if(StringUtils.isNullOrEmpty(username)||StringUtils.isNullOrEmpty(goodsIds)){
             return new RtnResult(Rtn.missingParameter);
         }
         shoppingCartMapper.deleteShoppingCart(username,goodsIds.split(","));
-        Integer count = shoppingCartMapper.selectShoppingCartCount(username);
-        count = count ==null?0:count;
-        return new RtnResult(Rtn.success,count);
+        return new RtnResult(Rtn.success,shoppingCartMapper.queryShoppingCart(username));
     }
 
     @Override

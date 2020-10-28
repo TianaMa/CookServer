@@ -13,7 +13,7 @@ public interface IShoppingCartService {
 
     RtnResult<Integer> updateShoppingCartCount(ShoppingCart shoppingCart) throws Exception;
 
-    RtnResult<Integer> deleteShoppingCart(HttpServletRequest request) throws Exception;
+    RtnResult<List<ShoppingCartDetails>> deleteShoppingCart(HttpServletRequest request) throws Exception;
 
     RtnResult<Integer> queryShoppingCartCount(String username) throws Exception;
 
