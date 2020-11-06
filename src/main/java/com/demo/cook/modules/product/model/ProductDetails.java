@@ -1,6 +1,10 @@
 package com.demo.cook.modules.product.model;
 
 
+import com.demo.cook.modules.comment.model.CommentDetails;
+
+import java.util.List;
+
 public class ProductDetails extends Product{
 
 
@@ -19,6 +23,8 @@ public class ProductDetails extends Product{
     private boolean collected;
 
     private boolean praised;
+
+    private List<CommentDetails> commentList;
 
     public String getTagName() {
         return tagName;
@@ -84,5 +90,13 @@ public class ProductDetails extends Product{
 
     public void setPraised(boolean praised) {
         this.praised = praised;
+    }
+
+    public List<CommentDetails> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<CommentDetails> commentList) {
+        this.commentList = commentList;
     }
 }

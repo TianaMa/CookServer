@@ -2,6 +2,7 @@ package com.demo.cook.modules.comment.controller;
 
 import com.demo.cook.common.response.Rtn;
 import com.demo.cook.common.response.RtnResult;
+import com.demo.cook.common.utils.ReqUtil;
 import com.demo.cook.modules.comment.model.Comment;
 import com.demo.cook.modules.comment.model.CommentDetails;
 import com.demo.cook.modules.comment.service.ICommentService;
@@ -37,7 +38,7 @@ public class CommentController {
     @RequestMapping(value = "/queryCommentList",method = RequestMethod.GET)
     RtnResult<List<CommentDetails>> queryCommentList(HttpServletRequest request){
         try {
-            return commentService.queryCommentList(request);
+            return commentService.queryCommentList(ReqUtil.getParams(request));
         } catch (Exception e) {
             e.printStackTrace();
             return new RtnResult<>(Rtn.serviceException);

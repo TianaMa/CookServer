@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CommentServiceImpl implements ICommentService {
@@ -28,11 +29,11 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public RtnResult<List<CommentDetails>> queryCommentList(HttpServletRequest request) throws Exception {
-        String targetId=request.getParameter("targetId");
+    public RtnResult<List<CommentDetails>> queryCommentList(Map<String,String> request) throws Exception {
+        String targetId=  request.get("targetId");
         if (StringUtils.isNullOrEmpty(targetId)){
             return new RtnResult<>(Rtn.missingParameter);
         }
-        return new RtnResult<>(Rtn.success,commentMapper.queryCommentList(targetId,request.getParameter("loginUserName")));
+        return new RtnResult<>(Rtn.success,commentMapper.queryCommentList(targetId, request.get("loginUserName")));
     }
 }
